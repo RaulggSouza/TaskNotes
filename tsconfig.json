@@ -18,7 +18,7 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "ignoreDeprecations": "5.0",
-    "incremental": true,
+    "incremental": false,
     "skipLibCheck": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
