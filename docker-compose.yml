@@ -3,7 +3,7 @@ services:
     build: .
     container_name: task-notes-api
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       PORT: 3000
       DATABASE_HOST: postgres
@@ -21,7 +21,7 @@ services:
     image: postgres:16
     container_name: task-notes-postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -33,7 +33,7 @@ services:
     image: redis:7
     container_name: task-notes-redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
 
