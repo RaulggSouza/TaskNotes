@@ -1,25 +1,35 @@
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS deps
+
+LABEL org.opencontainers.image.source="https://github.com"
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
+
+FROM deps AS builder
+
+WORKDIR /app
 
 COPY . .
 
 RUN npm run build
+RUN npm prune --omit=dev
 
-FROM node:20-alpine
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-COPY package*.json ./
+ENV NODE_ENV=production
+ENV PORT=3000
 
-RUN npm install
+COPY --chown=node:node package*.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/dist ./dist
 
-COPY --from=builder /app/dist ./dist
+USER node
 
 EXPOSE 3000
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/main.js"]

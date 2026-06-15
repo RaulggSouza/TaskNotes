@@ -7,6 +7,7 @@ services:
     env_file:
       - .env
     environment:
+      PORT: ${API_CONTAINER_PORT-3000}
       DATABASE_HOST: postgres
       REDIS_HOST: redis
     depends_on:

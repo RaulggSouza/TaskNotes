@@ -5,7 +5,7 @@ import { setupOpenApiDocumentation } from './openapi';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = Number(process.env.PORT) || 3000;
+  const port = Number(process.env.PORT ?? process.env.API_CONTAINER_PORT) || 3000;
 
   app.useGlobalPipes(
     new ValidationPipe({
