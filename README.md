@@ -1,6 +1,13 @@
 # TaskNotes API
 
-API simples para gerenciar tarefas, criada com NestJS, PostgreSQL e Redis.
+API simples para gerenciar tarefas, criada com NestJS, PostgreSQL e Redis.\
+[Acesse a página web aqui.](https://task-notes-front-8c3ovl4cs-gustavotrizottis-projects.vercel.app)
+
+## Utilização do registry
+
+A imagem docker gerada pelo workflow do actions, disponível na seção "Packages" foi utilizada no serviço [Render](https://render.com/) para subir o backend e permitir a comunicação com a página web.
+
+Você pode verificar a [documentação da API aqui](https://tasknotes-sha-cbed08e.onrender.com/reference).
 
 ## Requisitos
 
