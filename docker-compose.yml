@@ -3,15 +3,17 @@ services:
     build: .
     container_name: task-notes-api
     ports:
-      - '${API_HOST_PORT-3000}:${API_CONTAINER_PORT-3000d}'
+      - '${API_HOST_PORT-3000}:${API_CONTAINER_PORT-3000}'
     env_file:
       - .env
     environment:
       DATABASE_HOST: postgres
       REDIS_HOST: redis
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     healthcheck:
       test:
         [
@@ -34,6 +36,11 @@ services:
       POSTGRES_DB: tasks_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d tasks_db']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:7
