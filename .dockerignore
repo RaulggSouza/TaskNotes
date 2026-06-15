@@ -3,7 +3,7 @@ dist
 .git
 .env
 npm-debug.log
-
+coverage
 
 tsconfig.build.tsbuildinfo
 *.tsbuildinfo
