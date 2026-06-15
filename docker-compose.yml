@@ -3,19 +3,25 @@ services:
     build: .
     container_name: task-notes-api
     ports:
-      - '3000:3000'
+      - '${API_HOST_PORT-3000}:${API_CONTAINER_PORT-3000d}'
+    env_file:
+      - .env
     environment:
-      PORT: 3000
       DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: admin
-      DATABASE_PASSWORD: admin
-      DATABASE_NAME: tasks_db
       REDIS_HOST: redis
-      REDIS_PORT: 6379
     depends_on:
       - postgres
       - redis
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'wget -qO- http://localhost:${API_CONTAINER_PORT}/health || exit 1',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   postgres:
     image: postgres:16
